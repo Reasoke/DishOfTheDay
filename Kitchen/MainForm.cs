@@ -73,5 +73,53 @@ namespace Kitchen
             }
         }
 
+        private void queryEditToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var qe = new QueryEdit();
+            qe.Show();
+        }
+
+        private bool edit;
+        private void addToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            edit = false;
+            var edt = new EditForm();
+            edt.ShowDialog();
+            clientTableAdapter.Fill(kitchenDataSet.Client);
+            kitchenDataSet.AcceptChanges();
+        }
+
+        private void updateToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            edit = true;
+            var st = new KitchenDataSet.ClientDataTable();
+            clientTableAdapter.FillByID(st,Convert.ToInt32(dataGridView1.SelectedRows[0].Cells[0].Value));
+
+            object[] row = st.Rows[0].ItemArray;
+            var edt = new EditForm(
+                Convert.ToInt32(row[0]),
+                row[1].ToString(),
+                row[2].ToString(),
+                row[3].ToString(),
+                row[4].ToString(),
+                row[5].ToString(),
+                row[6].ToString(),
+                row[7].ToString(),
+                Convert.ToDateTime(row[8]),
+                row[9].ToString()
+            );
+            edt.ShowDialog();
+            clientTableAdapter.Fill(kitchenDataSet.Client);
+            kitchenDataSet.AcceptChanges();
+        }
+
+        private void deleteToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            clientTableAdapter.DeleteQuery(Convert.ToInt32(dataGridView1.SelectedRows[0].Cells[0].Value));
+            clientTableAdapter.Fill(kitchenDataSet.Client);
+            kitchenDataSet.AcceptChanges();
+        }
+
+        
     }
 }
