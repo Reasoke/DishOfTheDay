@@ -1,14 +1,50 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Dapper;
 using DishOfTheDay.Entity;
 
 namespace DishOfTheDay.Repository
 {
-    internal class KitchenRepository : BaseRepository, IGenericRepository<KitchenEntity>
+    internal class KitchenRepository : BaseRepository
     {
         public IEnumerable<KitchenEntity> GetAll()
         {
             return GetConnection().Query<KitchenEntity>("SELECT kitchen_id, name, country_flag FROM Kitchen");
+        }
+
+        public IEnumerable<KitchenEntity> GetAll(string search, int sortIndex, bool sortAsc)
+        {
+            var sql = @"SELECT name FROM Kitchen";
+
+            sql += " WHERE 1=1";
+
+            if (!string.IsNullOrEmpty(search))
+            {
+                sql += " AND name LIKE @search";
+            }
+            if (sortIndex >= 0)
+            {
+                sql += " ORDER BY ";
+                switch (sortIndex)
+                {
+                    case 1:
+                        sql += "name";
+                        break;                    
+                    case 0:
+                    default:
+                        sql += "name";
+                        break;
+
+                }
+                if (sortAsc)
+                    sql += " ASC";
+                else
+                    sql += " DESC";
+            }
+            return GetConnection().Query<KitchenEntity>(sql, new
+            {
+                search = "%" + search + "%",
+            });
         }
 
         public KitchenEntity GetById(int id)
@@ -35,5 +71,6 @@ namespace DishOfTheDay.Repository
         {
             GetConnection().Execute("DELETE From Kitchen  WHERE kitchen_id = @kitchen_id", new {kitchen_id = id});
         }
+
     }
 }

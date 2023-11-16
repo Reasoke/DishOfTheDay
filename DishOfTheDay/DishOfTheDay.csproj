@@ -78,6 +78,12 @@
     <Compile Include="Editors\DishTypeEditor.Designer.cs">
       <DependentUpon>DishTypeEditor.cs</DependentUpon>
     </Compile>
+    <Compile Include="Editors\StatisticsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Editors\StatisticsForm.Designer.cs">
+      <DependentUpon>StatisticsForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Editors\IngredientEditForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -115,6 +121,7 @@
     <Compile Include="Repository\DishTypeRepository.cs" />
     <Compile Include="Repository\IngredientRepository.cs" />
     <Compile Include="Repository\KitchenRepository.cs" />
+    <Compile Include="RtfBuilder.cs" />
     <EmbeddedResource Include="Editors\DishIngredientEditForm.resx">
       <DependentUpon>DishIngredientEditForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -132,6 +139,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Editors\KitchenEditForm.resx">
       <DependentUpon>KitchenEditForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Editors\StatisticsForm.resx">
+      <DependentUpon>StatisticsForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>

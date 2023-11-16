@@ -209,13 +209,47 @@ namespace DishOfTheDay
                     header.Text = "Користувачі";
                     break;
                 case ViewMode.Ingredients:
+
+                    //filter
+                    search = txtSearch.Text;
+                    sortIndex = cmbSort.SelectedIndex;
+                    sortAsc = btnSort.ImageIndex == 4;
+                    int minPrice = (int)numMinPrice.Value;
+                    int maxPrice = (int)numMaxPrice.Value;
+                    string units = cmbUnits.Text;
+                    string manufacturer = cmbManufacturer.Text;
+                    //int manufacturer = cmbManufacturer.SelectedValue == null ? -1 : (int)cmbManufacturer.SelectedValue;
+
+                    var ingredients = DataLayer.Instance.GetIngredients(search, sortIndex, sortAsc, minPrice, maxPrice, units, manufacturer);
+                    currentData = new List<object>(ingredients);
+
+                    //display;
                     lstMain.Columns.Add("Назва", 200);
                     lstMain.Columns.Add("Ціна", 100);
                     lstMain.Columns.Add("Міра вимірювання", 150);
                     lstMain.Columns.Add("Термін придатності (днів)", 100);
                     lstMain.Columns.Add("Виробник", 200);
 
-                    foreach (var entity in DataLayer.Instance.Ingredients)
+                    cmbSort.Items.Clear();
+                    cmbSort.Items.Add("");
+                    cmbSort.Items.Add("Назва");
+                    cmbSort.Items.Add("Ціна");
+                    cmbSort.Items.Add("Міра вимірювання");
+                    cmbSort.Items.Add("Термін придатності (днів)");
+                    cmbSort.Items.Add("Виробник");
+                    cmbSort.SelectedIndex = sortIndex;
+
+                    cmbUnits.Items.Clear();
+                    cmbUnits.Items.Add("");
+                    cmbUnits.Items.AddRange(DataLayer.Instance.GetIngredientUnits());
+                    cmbUnits.Text = units;
+
+                    cmbManufacturer.Items.Clear();
+                    cmbManufacturer.Items.Add("");
+                    cmbManufacturer.Items.AddRange(DataLayer.Instance.GetIngredientManufacturers());
+                    cmbManufacturer.Text = units;
+
+                    foreach (var entity in ingredients)
                     {
                         var listViewItem = lstMain.Items.Add(entity.name);
                         listViewItem.SubItems.Add(entity.price.ToString());
@@ -227,9 +261,23 @@ namespace DishOfTheDay
                     header.Text = "Індгредієнти";
                     break;
                 case ViewMode.Kitchens:
+                    //filter
+                    search = txtSearch.Text;
+                    sortIndex = cmbSort.SelectedIndex;
+                    sortAsc = btnSort.ImageIndex == 4;
+
+                    var kitchen = DataLayer.Instance.GetKitchens(search, sortIndex, sortAsc);
+                    currentData = new List<object>(kitchen);
+
+                    //display
                     lstMain.Columns.Add("Назва", 200);
 
-                    foreach (var entity in DataLayer.Instance.Kitchens)
+                    cmbSort.Items.Clear();
+                    cmbSort.Items.Add("");
+                    cmbSort.Items.Add("Назва");
+                    cmbSort.SelectedIndex = sortIndex;
+
+                    foreach (var entity in kitchen)
                     {
                         var listViewItem = lstMain.Items.Add(entity.name);
                         listViewItem.Tag = entity;
@@ -237,9 +285,23 @@ namespace DishOfTheDay
                     header.Text = "Кухні";
                     break;
                 case ViewMode.DishTypes:
+                    //filter
+                    search = txtSearch.Text;
+                    sortIndex = cmbSort.SelectedIndex;
+                    sortAsc = btnSort.ImageIndex == 4;
+
+                    var dishType = DataLayer.Instance.GetDithTypes(search, sortIndex, sortAsc);
+                    currentData = new List<object>(dishType);
+
+                    //display
                     lstMain.Columns.Add("Назва", 200);
 
-                    foreach (var entity in DataLayer.Instance.DishTypes)
+                    cmbSort.Items.Clear();
+                    cmbSort.Items.Add("");
+                    cmbSort.Items.Add("Назва");
+                    cmbSort.SelectedIndex = sortIndex;
+
+                    foreach (var entity in dishType)
                     {
                         var listViewItem = lstMain.Items.Add(entity.name);
                         listViewItem.Tag = entity;
@@ -505,6 +567,11 @@ namespace DishOfTheDay
                 }
             }
         }
-        
+
+        private void getStatisticsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var dlg = new StatisticsForm();
+            dlg.ShowDialog();
+        }
     }
 }

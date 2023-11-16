@@ -44,11 +44,11 @@
             this.buttonOK = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.lstIngredients = new System.Windows.Forms.ListView();
+            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.btnAdd = new System.Windows.Forms.Button();
             this.label7 = new System.Windows.Forms.Label();
             this.btnRemove = new System.Windows.Forms.Button();
-            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             ((System.ComponentModel.ISupportInitialize)(this.numTime)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
             this.panel1.SuspendLayout();
@@ -228,6 +228,17 @@
             this.lstIngredients.View = System.Windows.Forms.View.Details;
             this.lstIngredients.DoubleClick += new System.EventHandler(this.lstIngredients_DoubleClick);
             // 
+            // columnHeader1
+            // 
+            this.columnHeader1.Text = "Назва";
+            this.columnHeader1.Width = 258;
+            // 
+            // columnHeader2
+            // 
+            this.columnHeader2.Text = "КІлькість";
+            this.columnHeader2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.columnHeader2.Width = 168;
+            // 
             // btnAdd
             // 
             this.btnAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
@@ -245,9 +256,9 @@
             this.label7.AutoSize = true;
             this.label7.Location = new System.Drawing.Point(490, 337);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(100, 21);
+            this.label7.Size = new System.Drawing.Size(91, 21);
             this.label7.TabIndex = 65;
-            this.label7.Text = "Зображення";
+            this.label7.Text = "Інгредієнти";
             // 
             // btnRemove
             // 
@@ -259,17 +270,6 @@
             this.btnRemove.Text = "-";
             this.btnRemove.UseVisualStyleBackColor = true;
             this.btnRemove.Click += new System.EventHandler(this.btnRemove_Click);
-            // 
-            // columnHeader1
-            // 
-            this.columnHeader1.Text = "Назва";
-            this.columnHeader1.Width = 258;
-            // 
-            // columnHeader2
-            // 
-            this.columnHeader2.Text = "КІлькість";
-            this.columnHeader2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.columnHeader2.Width = 168;
             // 
             // DishEditForm
             // 

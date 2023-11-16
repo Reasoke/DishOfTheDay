@@ -4,7 +4,7 @@ using DishOfTheDay.Entity;
 
 namespace DishOfTheDay.Repository
 {
-    internal class ClientRepository : BaseRepository, IGenericRepository<ClientEntity>
+    internal class ClientRepository : BaseRepository
     {
 
         public IEnumerable<ClientEntity> GetAll()

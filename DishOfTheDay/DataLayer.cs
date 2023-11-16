@@ -46,8 +46,7 @@ namespace DishOfTheDay
             dishes = dishRepository.GetAll().ToList();
         }
 
-        public List<DishEntity> GetDishes(string search, int sortIndex, bool sortAsc, int minCookingTime,
-            int maxCookingTime,
+        public List<DishEntity> GetDishes(string search, int sortIndex, bool sortAsc, int minCookingTime,int maxCookingTime,
             int minIngredientCount, int maxIngredientCount, int dishTypeId, int kitchenId, bool? hasPicture)
         {
             return dishRepository.GetAll(search, sortIndex, sortAsc, minCookingTime, maxCookingTime,
@@ -109,6 +108,11 @@ namespace DishOfTheDay
             kitchens = kitchenRepository.GetAll().ToList();
         }
 
+        public List<KitchenEntity> GetKitchens(string search, int sortIndex, bool sortAsc)
+        {
+            return kitchenRepository.GetAll(search, sortIndex, sortAsc).ToList();
+        }
+
         public void SaveKitchen(KitchenEntity item)
         {
             if (item.kitchen_id > 0)
@@ -157,6 +161,11 @@ namespace DishOfTheDay
         public void RefreshDishTypes()
         {
             dishTypes = dishTypeRepository.GetAll().ToList();
+        }
+
+        public List<DishTypeEntity> GetDithTypes(string search, int sortIndex, bool sortAsc)
+        {
+            return dishTypeRepository.GetAll(search, sortIndex, sortAsc).ToList();
         }
 
         public void SaveDishType(DishTypeEntity item)
@@ -241,6 +250,11 @@ namespace DishOfTheDay
             ingredients = ingredientRepository.GetAll().ToList();
         }
 
+        internal List<IngredientEntity> GetIngredients(string search, int sortIndex, bool sortAsc, int minPrice, int maxPrice, string units, string manufacturer)
+        {
+            return ingredientRepository.GetAll(search, sortIndex, sortAsc, minPrice, maxPrice, units, manufacturer).ToList();
+        }
+
         public void SaveIngredient(IngredientEntity item)
         {
             if (item.ingredient_id > 0)
@@ -256,6 +270,22 @@ namespace DishOfTheDay
             ingredientRepository.Delete(id);
             //update cachesd items
             RefreshIngredients();
+        }
+
+        public string[] GetIngredientUnits()
+        {
+            return ingredientRepository.GetIngredientUnits().ToArray();
+        }
+
+        public string[] GetIngredientManufacturers()
+        {
+            return ingredientRepository.GetIngredientManufacturers().ToArray();
+        }
+
+        private readonly BaseRepository baseRepository = new BaseRepository();
+        public string GetStatistics()
+        {
+            return baseRepository.GetStatistics();
         }
 
         #endregion

@@ -47,17 +47,20 @@ namespace DishOfTheDay.Repository
                 switch (sortIndex)
                 {
                     case 1:
-                        sql += "k.name";
+                        sql += "d.name";
                         break;
                     case 2:
-                        sql += "dt.name";
+                        sql += "k.name";
                         break;
                     case 3:
+                        sql += "dt.name";
+                        break;
+                    case 4:
                         sql += "cooking_time";
                         break;
                     case 0:
                     default:
-                        sql += "name";
+                        sql += "d.name";
                         break;
 
                 }
