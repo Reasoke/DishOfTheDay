@@ -1,10 +1,18 @@
 ﻿using DishOfTheDay.Entity;
 using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
-using static Dapper.SqlMapper;
+using iText.IO.Font;
+using iText.IO.Image;
+using iText.Kernel.Colors;
+using iText.Kernel.Font;
+using iText.Kernel.Pdf;
+using iText.Kernel.Pdf.Canvas.Draw;
+using iText.Layout;
+using iText.Layout.Element;
+using iText.Layout.Properties;
+using HorizontalAlignment = iText.Layout.Properties.HorizontalAlignment;
 
 namespace DishOfTheDay.Editors
 {
@@ -43,17 +51,19 @@ namespace DishOfTheDay.Editors
                         {
                             using (var ms = new MemoryStream(CurrentItem.picture))
                             {
-                                pictureBox.Image = Image.FromStream(ms);
+                                pictureBox.Image = System.Drawing.Image.FromStream(ms);
                             }
                         }
                         catch (Exception ex)
                         {
+                            MessageBox.Show(ex.Message, "Щось сталося", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
                     }
                     foreach (var item in CurrentIngredients)
                     {
                         var i = lstIngredients.Items.Add(item.ingredientName);
                         i.SubItems.Add(item.count.ToString());
+                        i.SubItems.Add(item.units);
                         i.Tag = item;
                     }
                 }
@@ -147,6 +157,7 @@ namespace DishOfTheDay.Editors
             {
                 lstIngredients.SelectedItems[0].Text = selectedItem.ingredientName;
                 lstIngredients.SelectedItems[0].SubItems[1].Text = selectedItem.count.ToString();
+                lstIngredients.SelectedItems[0].SubItems[2].Text = selectedItem.units;
             }
         }
 
@@ -168,6 +179,104 @@ namespace DishOfTheDay.Editors
             lstIngredients.Items.Remove(lstIngredients.SelectedItems[0]);
             CurrentIngredients.Remove(selectedItem);
 
+        }
+
+        private void btnPDF_Click(object sender, EventArgs e)
+        {
+            var dlg = new SaveFileDialog();
+            dlg.Filter = "Data files (*.pdf)|*.pdf|All files|*.*";
+            dlg.RestoreDirectory = true;
+            dlg.DefaultExt = ".pdf";
+            if (dlg.ShowDialog() == DialogResult.OK)
+            {
+                try
+                {
+                    var fontProgram = FontProgramFactory.CreateFont(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Fonts), "verdana.ttf"));
+                    var font = PdfFontFactory.CreateFont(fontProgram, "Windows-1251");
+                    
+                    var writer = new PdfWriter(dlg.FileName);
+                    var pdf = new PdfDocument(writer);
+                    var document = new Document(pdf);
+                    document.SetFont(font);
+                    //header
+                    var header = new Paragraph("РЕЦЕПТ " + CurrentItem.name.ToUpper())
+                        .SetTextAlignment(TextAlignment.CENTER).SetFontSize(20);
+                    document.Add(header);
+                    
+                    // Line separator
+                    var ls = new LineSeparator(new SolidLine());
+                    document.Add(ls);
+                    
+                    //subheader
+                    var subheader  = new Paragraph("Створено в DishOfTheDay " + DateTime.Now)
+                        .SetTextAlignment(TextAlignment.CENTER).SetFontSize(15);
+                    document.Add(subheader);
+                    
+                    // Add image
+                    var img = new Image(ImageDataFactory.Create(CurrentItem.picture))
+                        // .SetMaxWidth(UnitValue.CreatePercentValue(70))
+                        // .SetMaxWidth(200)
+                        .SetMaxHeight(200)
+                        .SetHorizontalAlignment(HorizontalAlignment.CENTER);
+                    document.Add(img);
+                    
+                    //Information about dish
+                    var dishType = new Paragraph("Тип страви: " + CurrentItem.DishTypeName)
+                        .SetTextAlignment(TextAlignment.LEFT).SetFontSize(12);
+                    document.Add(dishType);
+                    var kitchen = new Paragraph("Кухня, якій належить страва: " + CurrentItem.KitchenName)
+                        .SetTextAlignment(TextAlignment.LEFT).SetFontSize(12);
+                    document.Add(kitchen);
+                    var cookingTime = new Paragraph("Для приготування  страви потрібно: " + CurrentItem.cooking_time + "хв")
+                        .SetTextAlignment(TextAlignment.LEFT).SetFontSize(12);
+                    document.Add(cookingTime);
+                    var recipe = new Paragraph("Рецепт: " + CurrentItem.recipe)
+                        .SetTextAlignment(TextAlignment.LEFT).SetFontSize(12);
+                    document.Add(recipe);
+                    
+                    //ingredients
+                    var title = new Paragraph("Інгрідієнти для страви")
+                        .SetTextAlignment(TextAlignment.LEFT).SetFontSize(12).SetBold();
+                    document.Add(title);
+
+                    Table table = new Table(3, false);
+                    table.SetWidth(UnitValue.CreatePercentValue(100));
+                    Cell cell11 = new Cell(1, 1).SetBackgroundColor(ColorConstants.GRAY).SetTextAlignment(TextAlignment.CENTER).Add(new Paragraph("Назва"));
+                    Cell cell12 = new Cell(1, 1).SetBackgroundColor(ColorConstants.GRAY).SetTextAlignment(TextAlignment.CENTER).Add(new Paragraph("Кількість"));
+                    Cell cell13 = new Cell(1, 1).SetBackgroundColor(ColorConstants.GRAY).SetTextAlignment(TextAlignment.CENTER).Add(new Paragraph("Міра вимірювання"));
+                    table.AddCell(cell11);
+                    table.AddCell(cell12);
+                    table.AddCell(cell13);
+
+                    foreach (var i in CurrentIngredients)
+                    {
+                        Cell cell21 = new Cell(1, 1).SetTextAlignment(TextAlignment.CENTER).Add(new Paragraph(i.ingredientName));
+                        Cell cell22 = new Cell(1, 1).SetTextAlignment(TextAlignment.CENTER).Add(new Paragraph(i.count.ToString()));
+                        Cell cell23 = new Cell(1, 1).SetTextAlignment(TextAlignment.CENTER).Add(new Paragraph(i.units));
+                        table.AddCell(cell21);
+                        table.AddCell(cell22);
+                        table.AddCell(cell23);
+                    }
+                    document.Add(table);
+                  
+                    // Page numbers
+                    var n = pdf.GetNumberOfPages();
+                    for (var i = 1; i <= n; i++)
+                    {
+                        document.ShowTextAligned(new Paragraph(string.Format("page" + i + " of " + n)),
+                            559, 806, i, TextAlignment.RIGHT, VerticalAlignment.TOP, 0);
+                    }
+                    
+                    document.Close();
+                    // MessageBox.Show("Данні успішно експортовано", "Information", MessageBoxButtons.OK,
+                    //     MessageBoxIcon.Information);
+                    System.Diagnostics.Process.Start(dlg.FileName);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Щось сталося", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
         }
     }
 }

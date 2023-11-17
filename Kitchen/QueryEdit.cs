@@ -29,7 +29,7 @@ namespace Kitchen
             }
             catch (Exception ex)
             {
-                MessageBox.Show(@"Error: " + ex.Message);
+                MessageBox.Show(ex.Message, "Щось сталося", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

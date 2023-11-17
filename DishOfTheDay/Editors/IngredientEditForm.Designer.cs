@@ -42,8 +42,8 @@
             this.txtManufacturer = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numPrice)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numExpiration)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize) (this.numPrice)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize) (this.numExpiration)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
@@ -59,7 +59,7 @@
             // 
             // buttonOK
             // 
-            this.buttonOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonOK.Anchor = ((System.Windows.Forms.AnchorStyles) ((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonOK.Location = new System.Drawing.Point(239, 5);
             this.buttonOK.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.buttonOK.Name = "buttonOK";
@@ -67,10 +67,12 @@
             this.buttonOK.TabIndex = 47;
             this.buttonOK.Text = "Зберегти";
             this.buttonOK.UseVisualStyleBackColor = true;
+            this.buttonOK.Click += new System.EventHandler(this.buttonOK_Click);
+
             // 
             // buttonCancel
             // 
-            this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles) ((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.buttonCancel.Location = new System.Drawing.Point(359, 5);
             this.buttonCancel.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
@@ -82,15 +84,10 @@
             // 
             // numPrice
             // 
-            this.numPrice.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.numPrice.Anchor = ((System.Windows.Forms.AnchorStyles) (((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             this.numPrice.DecimalPlaces = 2;
             this.numPrice.Location = new System.Drawing.Point(213, 58);
-            this.numPrice.Maximum = new decimal(new int[] {
-            999999,
-            0,
-            0,
-            0});
+            this.numPrice.Maximum = new decimal(new int[] {999999, 0, 0, 0});
             this.numPrice.Name = "numPrice";
             this.numPrice.Size = new System.Drawing.Size(258, 29);
             this.numPrice.TabIndex = 67;
@@ -106,8 +103,7 @@
             // 
             // txtName
             // 
-            this.txtName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtName.Anchor = ((System.Windows.Forms.AnchorStyles) (((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             this.txtName.Location = new System.Drawing.Point(213, 23);
             this.txtName.Name = "txtName";
             this.txtName.Size = new System.Drawing.Size(258, 29);
@@ -124,14 +120,9 @@
             // 
             // numExpiration
             // 
-            this.numExpiration.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.numExpiration.Anchor = ((System.Windows.Forms.AnchorStyles) (((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             this.numExpiration.Location = new System.Drawing.Point(213, 128);
-            this.numExpiration.Maximum = new decimal(new int[] {
-            999999,
-            0,
-            0,
-            0});
+            this.numExpiration.Maximum = new decimal(new int[] {999999, 0, 0, 0});
             this.numExpiration.Name = "numExpiration";
             this.numExpiration.Size = new System.Drawing.Size(258, 29);
             this.numExpiration.TabIndex = 71;
@@ -147,8 +138,7 @@
             // 
             // txtUnits
             // 
-            this.txtUnits.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtUnits.Anchor = ((System.Windows.Forms.AnchorStyles) (((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             this.txtUnits.Location = new System.Drawing.Point(213, 93);
             this.txtUnits.Name = "txtUnits";
             this.txtUnits.Size = new System.Drawing.Size(258, 29);
@@ -165,8 +155,7 @@
             // 
             // txtManufacturer
             // 
-            this.txtManufacturer.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtManufacturer.Anchor = ((System.Windows.Forms.AnchorStyles) (((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             this.txtManufacturer.Location = new System.Drawing.Point(213, 163);
             this.txtManufacturer.Name = "txtManufacturer";
             this.txtManufacturer.Size = new System.Drawing.Size(258, 29);
@@ -199,7 +188,7 @@
             this.Controls.Add(this.txtName);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.panel1);
-            this.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (204)));
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
@@ -211,11 +200,10 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Інгредієнт";
             this.panel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.numPrice)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numExpiration)).EndInit();
+            ((System.ComponentModel.ISupportInitialize) (this.numPrice)).EndInit();
+            ((System.ComponentModel.ISupportInitialize) (this.numExpiration)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
-
         }
 
         #endregion

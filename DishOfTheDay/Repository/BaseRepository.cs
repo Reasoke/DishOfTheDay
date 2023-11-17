@@ -15,10 +15,10 @@ namespace DishOfTheDay.Repository
             return new System.Data.SqlClient.SqlConnection(connectionString);
         }
 
-        public string GetStatistics()
+        public StatisticsInfo GetStatistics()
         {
-            RtfBuilder result = new RtfBuilder();
-
+            StatisticsInfo result = new StatisticsInfo();
+            
             using (var cn = GetConnection())
             {
                 cn.Open();
@@ -29,20 +29,15 @@ namespace DishOfTheDay.Repository
                         FROM Dish";
                     using (var reader = command.ExecuteReader())
                     {
+                        
                         if (reader.Read())
                         {
                             var columnIndex = reader.GetOrdinal("total");
-                            var total = reader.GetInt32(columnIndex); //reader.GetInt32(0);
-                            var withImage = reader.GetInt32(1);
-                            var withoutImage = reader.GetInt32(2);
-                            DateTime? first = reader.IsDBNull(3) ? (DateTime?)null : reader.GetDateTime(3);
-                            DateTime? last = reader.IsDBNull(4) ? (DateTime?)null : reader.GetDateTime(4);
-                            result.AppendBold("Dish information").AppendLine()
-                                .AppendLine($"total = {total}")
-                                .AppendLine($"withImage = {withImage}")
-                                .AppendLine($"withoutImage = {withoutImage}")
-                                .AppendLine($"first = {first}")
-                                .AppendLine($"last = {last}");
+                            result.TotalDishCount = reader.GetInt32(columnIndex); //reader.GetInt32(0);
+                            result.DishesWithImageCount = reader.GetInt32(1);
+                            result.DishesWithoutImageCount = reader.GetInt32(2);
+                            result.FirstCreated = reader.IsDBNull(3) ? (DateTime?)null : reader.GetDateTime(3);
+                            result.LastCreated = reader.IsDBNull(4) ? (DateTime?)null : reader.GetDateTime(4);
                         }
                     }
 
@@ -51,15 +46,10 @@ namespace DishOfTheDay.Repository
                     {
                         if (reader.Read())
                         {
-                            var sum = reader.GetInt32(0);
-                            var min = reader.GetInt32(1);
-                            var max = reader.GetInt32(2);
-                            var avg = reader.GetDecimal(3);
-                            result.AppendLine().AppendBoldLine("DishCLient Information")
-                                .AppendLine($"sum = {sum}")
-                                .AppendLine($"min = {min}")
-                                .AppendLine($"max = {max}")
-                                .AppendLine($"avg = {avg}");
+                            result.SumOfUsage = reader.GetInt32(0);
+                            result.MinOfUsage = reader.GetInt32(1);
+                            result.MaxOfUsage = reader.GetInt32(2);
+                            result.AvgOfUsage = reader.GetDecimal(3);
                         }
                     }
                     
@@ -72,10 +62,8 @@ namespace DishOfTheDay.Repository
                     {
                         if (reader.Read())
                         {
-                            var popularDishType = reader.GetString(0);
-                            var popularDishTypeCount = reader.GetInt32(1);
-                            result.AppendLine().AppendBoldLine("The most popular DishType")
-                                .AppendLine($"DishType = {popularDishType} in count - {popularDishTypeCount}");
+                            result.PopularDishType = reader.GetString(0);
+                            result.PopularDishTypeCount = reader.GetInt32(1);
                         }
                     } 
                     
@@ -88,10 +76,8 @@ namespace DishOfTheDay.Repository
                     {
                         if (reader.Read())
                         {
-                            var popularKitchen = reader.GetString(0);
-                            var popularKitchenCount = reader.GetInt32(1);
-                            result.AppendLine().AppendBoldLine("The most popular Kitchen")
-                                .AppendLine($"Kitchen = {popularKitchen} in count - {popularKitchenCount}");
+                            result.PopularKitchen = reader.GetString(0);
+                            result.PopularKitchenCount = reader.GetInt32(1);
                         }
                     }
 
@@ -102,13 +88,13 @@ namespace DishOfTheDay.Repository
                         ORDER BY ratedCount DESC";
                     using (var reader = command.ExecuteReader())
                     {
-                        result.AppendLine().AppendBoldLine("The most active person");
+                        result.MostActive = new List<StatisticsInfo.UserValue>();
                         while (reader.Read())
                         {
                             var i = 0;
                             var ratedCount = reader.GetInt32(i++);
                             var fullName = reader.GetString(i++);
-                            result.AppendLine($"RatedCount = {ratedCount} from person - {fullName}");
+                            result.MostActive.Add(new StatisticsInfo.UserValue() {Name = fullName, Value = ratedCount});
                         }
                     }
 
@@ -119,17 +105,15 @@ namespace DishOfTheDay.Repository
                         ORDER BY totalUsage DESC";
                     using (var reader = command.ExecuteReader())
                     {
-                        result.AppendLine().AppendBoldLine("The most hungry person");
+                        result.MostHungry = new List<StatisticsInfo.UserValue>();
                         while (reader.Read())
                         {
                             var i = 0;
                             var totalUsage = reader.GetInt32(i++);
                             var fullName = reader.GetString(i++);
-                            result.AppendLine($"TotalUsage = {totalUsage} from person - {fullName}");
+                            result.MostHungry.Add(new StatisticsInfo.UserValue(fullName, totalUsage));
                         }
                     }
-
-
                 }
 
 
@@ -146,8 +130,7 @@ namespace DishOfTheDay.Repository
             //result.AppendLine("| hello   |  cell2   | cell3      |");
             //result.AppendLine("-------------------------------------------------");
 
-            return result.ToRtf();
-
+            return result;
         }
     }
 

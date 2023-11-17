@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Dapper;
 using DishOfTheDay.Entity;
 
@@ -7,15 +6,10 @@ namespace DishOfTheDay.Repository
 {
     internal class DishRepository : BaseRepository
     {
-        public IEnumerable<DishEntity> GetAll()
-        {
-            return GetConnection().Query<DishEntity>("SELECT dish_id, name, kitchen, dish_type, cooking_time, recipe, picture FROM Dish");
-        }
-
         public IEnumerable<DishEntity> GetAll(string search, int sortIndex, bool sortAsc, int minCookingTime, int maxCookingTime,
             int minIngredientCount, int maxIngredientCount, int dishTypeId, int kitchenId, bool? hasPicture)
         {
-            var sql = @"SELECT d.dish_id, d.name, d.kitchen, d.dish_type, d.cooking_time, d.recipe, d.picture
+            var sql = @"SELECT d.dish_id, d.name, d.kitchen, d.dish_type, d.cooking_time, d.recipe, d.picture, k.name KitchenName, dt.name DIshTypeName
                     FROM Dish d
                              JOIN Kitchen k on d.kitchen = k.kitchen_id
                              JOIN DishType dt on dt.dish_type_id = d.dish_type";
@@ -153,7 +147,7 @@ namespace DishOfTheDay.Repository
 
         internal IEnumerable<DishIngredientEntity> GetIngredients(int dish_id)
         {
-            return GetConnection().Query<DishIngredientEntity>(@"SELECT dish_id, di.ingredient_id, i.name ingredientName, count FROM DishIngredient di
+            return GetConnection().Query<DishIngredientEntity>(@"SELECT dish_id, di.ingredient_id, i.name ingredientName, count, units FROM DishIngredient di
                     JOIN Ingredient i on di.ingredient_id = i.ingredient_id
                     WHERE dish_id = @dish_id",
                 new { dish_id = dish_id });

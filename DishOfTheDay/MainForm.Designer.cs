@@ -46,10 +46,10 @@
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.lstMain = new System.Windows.Forms.ListView();
-            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader1 = new System.Windows.Forms.ColumnHeader();
+            this.columnHeader2 = new System.Windows.Forms.ColumnHeader();
+            this.columnHeader3 = new System.Windows.Forms.ColumnHeader();
+            this.columnHeader4 = new System.Windows.Forms.ColumnHeader();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.newToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -114,41 +114,33 @@
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panelIngredients.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numMaxPrice)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numMinPrice)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize) (this.numMaxPrice)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize) (this.numMinPrice)).BeginInit();
             this.panelClients.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numMaxDish)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numMinDish)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize) (this.numMaxDish)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize) (this.numMinDish)).BeginInit();
             this.panelDishes.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numMaxIngredient)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numMinIngredient)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numMaxTime)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numMinTime)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize) (this.numMaxIngredient)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize) (this.numMinIngredient)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize) (this.numMaxTime)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize) (this.numMinTime)).BeginInit();
             this.panel4.SuspendLayout();
             this.panel3.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
             // 
-            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.fileToolStripMenuItem,
-            this.viewToolStripMenuItem,
-            this.helpToolStripMenuItem});
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {this.fileToolStripMenuItem, this.viewToolStripMenuItem, this.helpToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Padding = new System.Windows.Forms.Padding(9, 3, 0, 3);
-            this.menuStrip1.Size = new System.Drawing.Size(1201, 25);
+            this.menuStrip1.Size = new System.Drawing.Size(1134, 25);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
             // fileToolStripMenuItem
             // 
-            this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.importToolStripMenuItem,
-            this.exportToolStripMenuItem,
-            this.getStatisticsToolStripMenuItem,
-            this.toolStripMenuItem1,
-            this.exitToolStripMenuItem});
+            this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {this.importToolStripMenuItem, this.exportToolStripMenuItem, this.getStatisticsToolStripMenuItem, this.toolStripMenuItem1, this.exitToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(48, 19);
             this.fileToolStripMenuItem.Text = "Файл";
@@ -157,7 +149,7 @@
             // 
             this.importToolStripMenuItem.Name = "importToolStripMenuItem";
             this.importToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F2;
-            this.importToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.importToolStripMenuItem.Size = new System.Drawing.Size(172, 22);
             this.importToolStripMenuItem.Text = "Імпорт";
             this.importToolStripMenuItem.Click += new System.EventHandler(this.importToolStripMenuItem_Click);
             // 
@@ -165,39 +157,34 @@
             // 
             this.exportToolStripMenuItem.Name = "exportToolStripMenuItem";
             this.exportToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F3;
-            this.exportToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.exportToolStripMenuItem.Size = new System.Drawing.Size(172, 22);
             this.exportToolStripMenuItem.Text = "Експорт";
             this.exportToolStripMenuItem.Click += new System.EventHandler(this.exportToolStripMenuItem_Click);
             // 
             // getStatisticsToolStripMenuItem
             // 
             this.getStatisticsToolStripMenuItem.Name = "getStatisticsToolStripMenuItem";
-            this.getStatisticsToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.I)));
-            this.getStatisticsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.getStatisticsToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys) ((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.I)));
+            this.getStatisticsToolStripMenuItem.Size = new System.Drawing.Size(172, 22);
             this.getStatisticsToolStripMenuItem.Text = "Статистика";
             this.getStatisticsToolStripMenuItem.Click += new System.EventHandler(this.getStatisticsToolStripMenuItem_Click);
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(177, 6);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(169, 6);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.F4)));
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.exitToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys) ((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.F4)));
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(172, 22);
             this.exitToolStripMenuItem.Text = "Вихід";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
             // viewToolStripMenuItem
             // 
-            this.viewToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.dichesToolStripMenuItem,
-            this.clientsToolStripMenuItem,
-            this.ingredientsToolStripMenuItem,
-            this.kitchenToolStripMenuItem,
-            this.dishTypeToolStripMenuItem});
+            this.viewToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {this.dichesToolStripMenuItem, this.clientsToolStripMenuItem, this.ingredientsToolStripMenuItem, this.kitchenToolStripMenuItem, this.dishTypeToolStripMenuItem});
             this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
             this.viewToolStripMenuItem.Size = new System.Drawing.Size(71, 19);
             this.viewToolStripMenuItem.Text = "Перегляд";
@@ -205,7 +192,7 @@
             // dichesToolStripMenuItem
             // 
             this.dichesToolStripMenuItem.Name = "dichesToolStripMenuItem";
-            this.dichesToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.D1)));
+            this.dichesToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys) ((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.D1)));
             this.dichesToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
             this.dichesToolStripMenuItem.Text = "Страви";
             this.dichesToolStripMenuItem.Click += new System.EventHandler(this.dichesToolStripMenuItem_Click);
@@ -213,7 +200,7 @@
             // clientsToolStripMenuItem
             // 
             this.clientsToolStripMenuItem.Name = "clientsToolStripMenuItem";
-            this.clientsToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.D2)));
+            this.clientsToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys) ((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.D2)));
             this.clientsToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
             this.clientsToolStripMenuItem.Text = "Користувачі";
             this.clientsToolStripMenuItem.Click += new System.EventHandler(this.clientsToolStripMenuItem_Click);
@@ -221,7 +208,7 @@
             // ingredientsToolStripMenuItem
             // 
             this.ingredientsToolStripMenuItem.Name = "ingredientsToolStripMenuItem";
-            this.ingredientsToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.D3)));
+            this.ingredientsToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys) ((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.D3)));
             this.ingredientsToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
             this.ingredientsToolStripMenuItem.Text = "Інгредієнти";
             this.ingredientsToolStripMenuItem.Click += new System.EventHandler(this.ingredientsToolStripMenuItem_Click);
@@ -229,7 +216,7 @@
             // kitchenToolStripMenuItem
             // 
             this.kitchenToolStripMenuItem.Name = "kitchenToolStripMenuItem";
-            this.kitchenToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.D4)));
+            this.kitchenToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys) ((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.D4)));
             this.kitchenToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
             this.kitchenToolStripMenuItem.Text = "Кухні";
             this.kitchenToolStripMenuItem.Click += new System.EventHandler(this.kitchenToolStripMenuItem_Click);
@@ -237,15 +224,14 @@
             // dishTypeToolStripMenuItem
             // 
             this.dishTypeToolStripMenuItem.Name = "dishTypeToolStripMenuItem";
-            this.dishTypeToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.D5)));
+            this.dishTypeToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys) ((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.D5)));
             this.dishTypeToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
             this.dishTypeToolStripMenuItem.Text = "Тип страви";
             this.dishTypeToolStripMenuItem.Click += new System.EventHandler(this.dishTypeToolStripMenuItem_Click);
             // 
             // helpToolStripMenuItem
             // 
-            this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.aboutToolStripMenuItem});
+            this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {this.aboutToolStripMenuItem});
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
             this.helpToolStripMenuItem.Size = new System.Drawing.Size(75, 19);
             this.helpToolStripMenuItem.Text = "Допомога";
@@ -260,11 +246,7 @@
             // 
             // lstMain
             // 
-            this.lstMain.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader1,
-            this.columnHeader2,
-            this.columnHeader3,
-            this.columnHeader4});
+            this.lstMain.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {this.columnHeader1, this.columnHeader2, this.columnHeader3, this.columnHeader4});
             this.lstMain.ContextMenuStrip = this.contextMenuStrip1;
             this.lstMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lstMain.FullRowSelect = true;
@@ -273,7 +255,7 @@
             this.lstMain.Location = new System.Drawing.Point(0, 46);
             this.lstMain.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.lstMain.Name = "lstMain";
-            this.lstMain.Size = new System.Drawing.Size(954, 727);
+            this.lstMain.Size = new System.Drawing.Size(887, 568);
             this.lstMain.TabIndex = 1;
             this.lstMain.UseCompatibleStateImageBehavior = false;
             this.lstMain.View = System.Windows.Forms.View.Details;
@@ -297,10 +279,7 @@
             // 
             // contextMenuStrip1
             // 
-            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.newToolStripMenuItem,
-            this.editToolStripMenuItem,
-            this.deleteToolStripMenuItem});
+            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {this.newToolStripMenuItem, this.editToolStripMenuItem, this.deleteToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
             this.contextMenuStrip1.Size = new System.Drawing.Size(108, 70);
             this.contextMenuStrip1.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStrip1_Opening);
@@ -337,17 +316,17 @@
             this.panel1.Controls.Add(this.button2);
             this.panel1.Controls.Add(this.button1);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel1.Location = new System.Drawing.Point(0, 773);
+            this.panel1.Location = new System.Drawing.Point(0, 614);
             this.panel1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(954, 47);
+            this.panel1.Size = new System.Drawing.Size(887, 47);
             this.panel1.TabIndex = 2;
             // 
             // btnDelete
             // 
             this.btnDelete.ImageIndex = 2;
             this.btnDelete.ImageList = this.imageList1;
-            this.btnDelete.Location = new System.Drawing.Point(762, 6);
+            this.btnDelete.Location = new System.Drawing.Point(751, 6);
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(130, 36);
             this.btnDelete.TabIndex = 7;
@@ -358,7 +337,7 @@
             // 
             // imageList1
             // 
-            this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
+            this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer) (resources.GetObject("imageList1.ImageStream")));
             this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
             this.imageList1.Images.SetKeyName(0, "Custom-Icon-Design-Pretty-Office-9-New-file.48.png");
             this.imageList1.Images.SetKeyName(1, "Custom-Icon-Design-Pretty-Office-9-Edit-file.48.png");
@@ -371,7 +350,7 @@
             // 
             this.btnEdit.ImageIndex = 1;
             this.btnEdit.ImageList = this.imageList1;
-            this.btnEdit.Location = new System.Drawing.Point(626, 6);
+            this.btnEdit.Location = new System.Drawing.Point(615, 6);
             this.btnEdit.Name = "btnEdit";
             this.btnEdit.Size = new System.Drawing.Size(130, 36);
             this.btnEdit.TabIndex = 6;
@@ -384,7 +363,7 @@
             // 
             this.btnNew.ImageIndex = 0;
             this.btnNew.ImageList = this.imageList1;
-            this.btnNew.Location = new System.Drawing.Point(490, 6);
+            this.btnNew.Location = new System.Drawing.Point(479, 6);
             this.btnNew.Name = "btnNew";
             this.btnNew.Size = new System.Drawing.Size(130, 36);
             this.btnNew.TabIndex = 5;
@@ -401,6 +380,7 @@
             this.label1.Size = new System.Drawing.Size(61, 21);
             this.label1.TabIndex = 4;
             this.label1.Text = "10/100";
+            this.label1.Visible = false;
             // 
             // button4
             // 
@@ -411,6 +391,7 @@
             this.button4.TabIndex = 3;
             this.button4.Text = "<<";
             this.button4.UseVisualStyleBackColor = true;
+            this.button4.Visible = false;
             // 
             // button3
             // 
@@ -421,6 +402,7 @@
             this.button3.TabIndex = 2;
             this.button3.Text = "<<";
             this.button3.UseVisualStyleBackColor = true;
+            this.button3.Visible = false;
             // 
             // button2
             // 
@@ -431,6 +413,7 @@
             this.button2.TabIndex = 1;
             this.button2.Text = "<<";
             this.button2.UseVisualStyleBackColor = true;
+            this.button2.Visible = false;
             // 
             // button1
             // 
@@ -441,6 +424,7 @@
             this.button1.TabIndex = 0;
             this.button1.Text = "<<";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Visible = false;
             // 
             // panel2
             // 
@@ -450,11 +434,11 @@
             this.panel2.Controls.Add(this.panel4);
             this.panel2.Controls.Add(this.panel3);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panel2.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.panel2.Location = new System.Drawing.Point(954, 25);
+            this.panel2.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (204)));
+            this.panel2.Location = new System.Drawing.Point(887, 25);
             this.panel2.MinimumSize = new System.Drawing.Size(247, 0);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(247, 795);
+            this.panel2.Size = new System.Drawing.Size(247, 636);
             this.panel2.TabIndex = 3;
             // 
             // panelIngredients
@@ -476,8 +460,7 @@
             // 
             // cmbManufacturer
             // 
-            this.cmbManufacturer.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmbManufacturer.Anchor = ((System.Windows.Forms.AnchorStyles) (((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             this.cmbManufacturer.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbManufacturer.FormattingEnabled = true;
             this.cmbManufacturer.Location = new System.Drawing.Point(11, 139);
@@ -489,7 +472,7 @@
             // label17
             // 
             this.label17.AutoSize = true;
-            this.label17.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label17.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte) (204)));
             this.label17.Location = new System.Drawing.Point(8, 119);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(71, 17);
@@ -498,8 +481,7 @@
             // 
             // cmbUnits
             // 
-            this.cmbUnits.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmbUnits.Anchor = ((System.Windows.Forms.AnchorStyles) (((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             this.cmbUnits.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbUnits.FormattingEnabled = true;
             this.cmbUnits.Location = new System.Drawing.Point(11, 91);
@@ -511,7 +493,7 @@
             // label16
             // 
             this.label16.AutoSize = true;
-            this.label16.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label16.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte) (204)));
             this.label16.Location = new System.Drawing.Point(8, 71);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(130, 17);
@@ -539,29 +521,17 @@
             // numMaxPrice
             // 
             this.numMaxPrice.Location = new System.Drawing.Point(120, 43);
-            this.numMaxPrice.Maximum = new decimal(new int[] {
-            999999,
-            0,
-            0,
-            0});
+            this.numMaxPrice.Maximum = new decimal(new int[] {999999, 0, 0, 0});
             this.numMaxPrice.Name = "numMaxPrice";
             this.numMaxPrice.Size = new System.Drawing.Size(44, 25);
             this.numMaxPrice.TabIndex = 11;
-            this.numMaxPrice.Value = new decimal(new int[] {
-            999999,
-            0,
-            0,
-            0});
+            this.numMaxPrice.Value = new decimal(new int[] {999999, 0, 0, 0});
             this.numMaxPrice.ValueChanged += new System.EventHandler(this.ApplyFilters);
             // 
             // numMinPrice
             // 
             this.numMinPrice.Location = new System.Drawing.Point(39, 43);
-            this.numMinPrice.Maximum = new decimal(new int[] {
-            999999,
-            0,
-            0,
-            0});
+            this.numMinPrice.Maximum = new decimal(new int[] {999999, 0, 0, 0});
             this.numMinPrice.Name = "numMinPrice";
             this.numMinPrice.Size = new System.Drawing.Size(44, 25);
             this.numMinPrice.TabIndex = 10;
@@ -570,7 +540,7 @@
             // label15
             // 
             this.label15.AutoSize = true;
-            this.label15.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label15.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte) (204)));
             this.label15.Location = new System.Drawing.Point(8, 13);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(38, 17);
@@ -638,19 +608,11 @@
             // numMaxDish
             // 
             this.numMaxDish.Location = new System.Drawing.Point(120, 114);
-            this.numMaxDish.Maximum = new decimal(new int[] {
-            999999,
-            0,
-            0,
-            0});
+            this.numMaxDish.Maximum = new decimal(new int[] {999999, 0, 0, 0});
             this.numMaxDish.Name = "numMaxDish";
             this.numMaxDish.Size = new System.Drawing.Size(44, 25);
             this.numMaxDish.TabIndex = 11;
-            this.numMaxDish.Value = new decimal(new int[] {
-            999999,
-            0,
-            0,
-            0});
+            this.numMaxDish.Value = new decimal(new int[] {999999, 0, 0, 0});
             this.numMaxDish.ValueChanged += new System.EventHandler(this.ApplyFilters);
             // 
             // checkBoxPhone
@@ -668,11 +630,7 @@
             // numMinDish
             // 
             this.numMinDish.Location = new System.Drawing.Point(39, 114);
-            this.numMinDish.Maximum = new decimal(new int[] {
-            999999,
-            0,
-            0,
-            0});
+            this.numMinDish.Maximum = new decimal(new int[] {999999, 0, 0, 0});
             this.numMinDish.Name = "numMinDish";
             this.numMinDish.Size = new System.Drawing.Size(44, 25);
             this.numMinDish.TabIndex = 10;
@@ -681,7 +639,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label9.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte) (204)));
             this.label9.Location = new System.Drawing.Point(8, 84);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(104, 17);
@@ -732,29 +690,17 @@
             // numMaxIngredient
             // 
             this.numMaxIngredient.Location = new System.Drawing.Point(120, 95);
-            this.numMaxIngredient.Maximum = new decimal(new int[] {
-            999999,
-            0,
-            0,
-            0});
+            this.numMaxIngredient.Maximum = new decimal(new int[] {999999, 0, 0, 0});
             this.numMaxIngredient.Name = "numMaxIngredient";
             this.numMaxIngredient.Size = new System.Drawing.Size(44, 25);
             this.numMaxIngredient.TabIndex = 11;
-            this.numMaxIngredient.Value = new decimal(new int[] {
-            999999,
-            0,
-            0,
-            0});
+            this.numMaxIngredient.Value = new decimal(new int[] {999999, 0, 0, 0});
             this.numMaxIngredient.ValueChanged += new System.EventHandler(this.ApplyFilters);
             // 
             // numMinIngredient
             // 
             this.numMinIngredient.Location = new System.Drawing.Point(39, 95);
-            this.numMinIngredient.Maximum = new decimal(new int[] {
-            999999,
-            0,
-            0,
-            0});
+            this.numMinIngredient.Maximum = new decimal(new int[] {999999, 0, 0, 0});
             this.numMinIngredient.Name = "numMinIngredient";
             this.numMinIngredient.Size = new System.Drawing.Size(44, 25);
             this.numMinIngredient.TabIndex = 10;
@@ -763,7 +709,7 @@
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label12.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte) (204)));
             this.label12.Location = new System.Drawing.Point(8, 65);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(145, 17);
@@ -784,8 +730,7 @@
             // 
             // cmbDishTypes
             // 
-            this.cmbDishTypes.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmbDishTypes.Anchor = ((System.Windows.Forms.AnchorStyles) (((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             this.cmbDishTypes.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbDishTypes.FormattingEnabled = true;
             this.cmbDishTypes.Location = new System.Drawing.Point(11, 143);
@@ -797,7 +742,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label6.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte) (204)));
             this.label6.Location = new System.Drawing.Point(8, 123);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(78, 17);
@@ -806,8 +751,7 @@
             // 
             // cmbKitchens
             // 
-            this.cmbKitchens.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmbKitchens.Anchor = ((System.Windows.Forms.AnchorStyles) (((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             this.cmbKitchens.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbKitchens.FormattingEnabled = true;
             this.cmbKitchens.Location = new System.Drawing.Point(11, 191);
@@ -819,7 +763,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label5.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte) (204)));
             this.label5.Location = new System.Drawing.Point(8, 171);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(45, 17);
@@ -847,29 +791,17 @@
             // numMaxTime
             // 
             this.numMaxTime.Location = new System.Drawing.Point(120, 37);
-            this.numMaxTime.Maximum = new decimal(new int[] {
-            999999,
-            0,
-            0,
-            0});
+            this.numMaxTime.Maximum = new decimal(new int[] {999999, 0, 0, 0});
             this.numMaxTime.Name = "numMaxTime";
             this.numMaxTime.Size = new System.Drawing.Size(46, 25);
             this.numMaxTime.TabIndex = 2;
-            this.numMaxTime.Value = new decimal(new int[] {
-            999999,
-            0,
-            0,
-            0});
+            this.numMaxTime.Value = new decimal(new int[] {999999, 0, 0, 0});
             this.numMaxTime.ValueChanged += new System.EventHandler(this.ApplyFilters);
             // 
             // numMinTime
             // 
             this.numMinTime.Location = new System.Drawing.Point(39, 37);
-            this.numMinTime.Maximum = new decimal(new int[] {
-            999999,
-            0,
-            0,
-            0});
+            this.numMinTime.Maximum = new decimal(new int[] {999999, 0, 0, 0});
             this.numMinTime.Name = "numMinTime";
             this.numMinTime.Size = new System.Drawing.Size(44, 25);
             this.numMinTime.TabIndex = 1;
@@ -878,7 +810,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label2.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte) (204)));
             this.label2.Location = new System.Drawing.Point(8, 7);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(122, 17);
@@ -897,7 +829,7 @@
             // 
             // btnSort
             // 
-            this.btnSort.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnSort.Anchor = ((System.Windows.Forms.AnchorStyles) ((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnSort.ImageIndex = 4;
             this.btnSort.ImageList = this.imageList1;
             this.btnSort.Location = new System.Drawing.Point(192, 17);
@@ -909,8 +841,7 @@
             // 
             // cmbSort
             // 
-            this.cmbSort.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmbSort.Anchor = ((System.Windows.Forms.AnchorStyles) (((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             this.cmbSort.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbSort.FormattingEnabled = true;
             this.cmbSort.Location = new System.Drawing.Point(11, 20);
@@ -930,8 +861,7 @@
             // 
             // txtSearch
             // 
-            this.txtSearch.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtSearch.Anchor = ((System.Windows.Forms.AnchorStyles) (((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             this.txtSearch.Location = new System.Drawing.Point(11, 18);
             this.txtSearch.Name = "txtSearch";
             this.txtSearch.Size = new System.Drawing.Size(214, 25);
@@ -953,7 +883,7 @@
             this.header.Dock = System.Windows.Forms.DockStyle.Top;
             this.header.Location = new System.Drawing.Point(0, 25);
             this.header.Name = "header";
-            this.header.Size = new System.Drawing.Size(954, 21);
+            this.header.Size = new System.Drawing.Size(887, 21);
             this.header.TabIndex = 4;
             this.header.Text = "label18";
             this.header.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -982,13 +912,13 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 21F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1201, 820);
+            this.ClientSize = new System.Drawing.Size(1134, 661);
             this.Controls.Add(this.lstMain);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.header);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.menuStrip1);
-            this.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (204)));
             this.MainMenuStrip = this.menuStrip1;
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "MainForm";
@@ -1002,24 +932,23 @@
             this.panel2.ResumeLayout(false);
             this.panelIngredients.ResumeLayout(false);
             this.panelIngredients.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numMaxPrice)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numMinPrice)).EndInit();
+            ((System.ComponentModel.ISupportInitialize) (this.numMaxPrice)).EndInit();
+            ((System.ComponentModel.ISupportInitialize) (this.numMinPrice)).EndInit();
             this.panelClients.ResumeLayout(false);
             this.panelClients.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numMaxDish)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numMinDish)).EndInit();
+            ((System.ComponentModel.ISupportInitialize) (this.numMaxDish)).EndInit();
+            ((System.ComponentModel.ISupportInitialize) (this.numMinDish)).EndInit();
             this.panelDishes.ResumeLayout(false);
             this.panelDishes.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numMaxIngredient)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numMinIngredient)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numMaxTime)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numMinTime)).EndInit();
+            ((System.ComponentModel.ISupportInitialize) (this.numMaxIngredient)).EndInit();
+            ((System.ComponentModel.ISupportInitialize) (this.numMinIngredient)).EndInit();
+            ((System.ComponentModel.ISupportInitialize) (this.numMaxTime)).EndInit();
+            ((System.ComponentModel.ISupportInitialize) (this.numMinTime)).EndInit();
             this.panel4.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
-
         }
 
         #endregion

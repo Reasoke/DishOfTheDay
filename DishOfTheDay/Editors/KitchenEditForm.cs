@@ -35,6 +35,7 @@ namespace DishOfTheDay.Editors
                         }
                         catch (Exception ex)
                         {
+                            MessageBox.Show(ex.Message, "Щось сталося", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
                     }
                 }

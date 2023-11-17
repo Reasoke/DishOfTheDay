@@ -1,6 +1,5 @@
 ﻿using DishOfTheDay.Entity;
 using DishOfTheDay.Repository;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -30,21 +29,6 @@ namespace DishOfTheDay
         #region Dish
 
         private readonly DishRepository dishRepository = new DishRepository();
-        private List<DishEntity> dishes;
-        public List<DishEntity> AllDishes
-        {
-            get
-            {
-                if (dishes == null)
-                    dishes = dishRepository.GetAll().ToList();
-                return dishes;
-            }
-        }
-
-        public void RefreshDishes()
-        {
-            dishes = dishRepository.GetAll().ToList();
-        }
 
         public List<DishEntity> GetDishes(string search, int sortIndex, bool sortAsc, int minCookingTime,int maxCookingTime,
             int minIngredientCount, int maxIngredientCount, int dishTypeId, int kitchenId, bool? hasPicture)
@@ -59,15 +43,11 @@ namespace DishOfTheDay
                 dishRepository.Update(item, currentIngredients);
             else
                 dishRepository.Insert(item, currentIngredients);
-            //update cachesd items
-            RefreshDishes();
         }
 
         public void DeleteDish(int id)
         {
             dishRepository.Delete(id);
-            //update cachesd items
-            RefreshDishes();
         }
 
         internal List<DishIngredientEntity> GetIngredientsByDish(int dish_id)
@@ -190,22 +170,7 @@ namespace DishOfTheDay
         #region Client
 
         private readonly ClientRepository clientRepository = new ClientRepository();
-        private List<ClientEntity> clients;
-        public List<ClientEntity> Clients
-        {
-            get
-            {
-                if (clients == null)
-                    clients = clientRepository.GetAll().ToList();
-                return clients;
-            }
-        }
 
-        public void RefreshClients()
-        {
-            clients = clientRepository.GetAll().ToList();
-        }
-        
         public List<ClientEntity> GetClients(string search, int sortIndex, bool sortAsc, bool? phone, bool? address, bool? desc,
             int minDishes, int maxDishes)
         {
@@ -218,15 +183,11 @@ namespace DishOfTheDay
                 clientRepository.Update(item);
             else
                 clientRepository.Insert(item);
-            //update cachesd items
-            RefreshClients();
         }
 
         public void DeleteClient(int id)
         {
             clientRepository.Delete(id);
-            //update cachesd items
-            RefreshClients();
         }
 
         #endregion
@@ -283,7 +244,7 @@ namespace DishOfTheDay
         }
 
         private readonly BaseRepository baseRepository = new BaseRepository();
-        public string GetStatistics()
+        public StatisticsInfo GetStatistics()
         {
             return baseRepository.GetStatistics();
         }

@@ -30,30 +30,41 @@
         {
             this.btnOK = new System.Windows.Forms.Button();
             this.txtInformation = new System.Windows.Forms.RichTextBox();
+            this.btnPDF = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnOK
             // 
             this.btnOK.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.btnOK.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnOK.Location = new System.Drawing.Point(207, 260);
+            this.btnOK.Location = new System.Drawing.Point(274, 260);
             this.btnOK.Name = "btnOK";
-            this.btnOK.Size = new System.Drawing.Size(102, 39);
+            this.btnOK.Size = new System.Drawing.Size(150, 39);
             this.btnOK.TabIndex = 1;
             this.btnOK.Text = "Зрозуміло";
             this.btnOK.UseVisualStyleBackColor = true;
             // 
             // txtInformation
             // 
-            this.txtInformation.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtInformation.Anchor = ((System.Windows.Forms.AnchorStyles) ((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             this.txtInformation.Location = new System.Drawing.Point(12, 14);
             this.txtInformation.Name = "txtInformation";
             this.txtInformation.ReadOnly = true;
             this.txtInformation.Size = new System.Drawing.Size(510, 240);
             this.txtInformation.TabIndex = 2;
             this.txtInformation.Text = "h;";
+            // 
+            // btnPDF
+            // 
+            this.btnPDF.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.btnPDF.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.btnPDF.Location = new System.Drawing.Point(102, 260);
+            this.btnPDF.Name = "btnPDF";
+            this.btnPDF.Size = new System.Drawing.Size(150, 39);
+            this.btnPDF.TabIndex = 3;
+            this.btnPDF.Text = "Надрукувати PDF";
+            this.btnPDF.UseVisualStyleBackColor = true;
+            this.btnPDF.Click += new System.EventHandler(this.btnPDF_Click);
             // 
             // StatisticsForm
             // 
@@ -62,9 +73,10 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnOK;
             this.ClientSize = new System.Drawing.Size(534, 311);
+            this.Controls.Add(this.btnPDF);
             this.Controls.Add(this.txtInformation);
             this.Controls.Add(this.btnOK);
-            this.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (204)));
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
@@ -75,8 +87,9 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Статистика";
             this.ResumeLayout(false);
-
         }
+
+        private System.Windows.Forms.Button btnPDF;
 
         #endregion
         private System.Windows.Forms.Button btnOK;

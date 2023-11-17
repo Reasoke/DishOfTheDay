@@ -13,5 +13,4 @@ namespace DishOfTheDay.Entity
         public string address { get; set; }
         public string description { get; set; }
     }
-
 }

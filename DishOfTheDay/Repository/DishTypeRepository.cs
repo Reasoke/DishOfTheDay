@@ -14,7 +14,7 @@ namespace DishOfTheDay.Repository
 
         public IEnumerable<DishTypeEntity> GetAll(string search, int sortIndex, bool sortAsc)
         {
-            var sql = @"SELECT name FROM DishType";
+            var sql = @"SELECT dish_type_id, name FROM DishType";
 
             sql += " WHERE 1=1";
 

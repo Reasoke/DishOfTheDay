@@ -7,11 +7,6 @@ namespace DishOfTheDay.Repository
     internal class ClientRepository : BaseRepository
     {
 
-        public IEnumerable<ClientEntity> GetAll()
-        {
-            return GetConnection().Query<ClientEntity>("SELECT client_id, first_name, last_name, email, phone, address, description FROM Client");
-        }
-
         public IEnumerable<ClientEntity> GetAll(string search, int sortIndex, bool sortAsc, bool? phone, bool? address, bool? desc,
             int minDishes, int maxDishes)
         {

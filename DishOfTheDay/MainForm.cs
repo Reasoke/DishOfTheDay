@@ -508,21 +508,16 @@ namespace DishOfTheDay
             dlg.Filter = "Data files (*.txt, *.json)|*.txt;*.json|All files|*.*";
             dlg.RestoreDirectory = true;
             dlg.DefaultExt = ".json";
-            if (dlg.ShowDialog() == DialogResult.OK)
+            if (dlg.ShowDialog() != DialogResult.OK) return;
+            try
             {
-                try
-                {
-                    var json = JsonConvert.SerializeObject(currentData, Formatting.Indented);
-                    File.WriteAllText(dlg.FileName, json);
-                    MessageBox.Show("Данні успішно експортовано", "Information", MessageBoxButtons.OK,
-                        MessageBoxIcon.Information);
-
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex.Message, "Щось сталося", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    throw;
-                }
+                var json = JsonConvert.SerializeObject(currentData, Formatting.Indented);
+                File.WriteAllText(dlg.FileName, json);
+                MessageBox.Show("Данні успішно експортовано", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Щось сталося", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         
@@ -532,39 +527,50 @@ namespace DishOfTheDay
             dlg.Filter = "Data files (*.txt, *.json)|*.txt;*.json|All files|*.*";
             dlg.RestoreDirectory = true;
             dlg.DefaultExt = ".json";
-            if (dlg.ShowDialog() == DialogResult.OK)
+            if (dlg.ShowDialog() != DialogResult.OK) return;
+            try
             {
-                try
+                var json = File.ReadAllText(dlg.FileName);
+                switch (currentViewMode)
                 {
-                    var json = File.ReadAllText(dlg.FileName);
-                    switch (currentViewMode)
-                    {
-                        case ViewMode.Dishes:
-                            var items = JsonConvert.DeserializeObject<DishEntity[]>(json);
-                            foreach (var item in items)
+                    case ViewMode.Dishes:
+                        var items = JsonConvert.DeserializeObject<DishEntity[]>(json);
+                        foreach (var item in items)
+                        {
+                            item.dish_id = -1;
+                            var kitchen = DataLayer.Instance.Kitchens.FirstOrDefault(k => k.name.Equals(item.KitchenName));
+                            if (kitchen == null)
                             {
-                                item.dish_id = -1;
-                                DataLayer.Instance.SaveDish(item, null);
+                                kitchen = new KitchenEntity {name = item.KitchenName};
+                                DataLayer.Instance.SaveKitchen(kitchen);
                             }
-                            ApplyFilters(sender, e);
-                            MessageBox.Show("Данні успішно імпортовано", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            break;
-                        case ViewMode.Clients:
-                            break;
-                        case ViewMode.Ingredients:
-                            break;
-                        case ViewMode.Kitchens:
-                            break;
-                        case ViewMode.DishTypes:
-                            break;
-                        default:
-                            throw new ArgumentOutOfRangeException();
-                    }
+                            item.kitchen = kitchen.kitchen_id;
+
+                            var dishType = DataLayer.Instance.DishTypes.FirstOrDefault(i => i.name.Equals(item.DishTypeName));
+                            if (dishType == null)
+                            {
+                                dishType = new DishTypeEntity {name = item.DishTypeName};
+                                DataLayer.Instance.SaveDishType(dishType);
+                            }
+                            item.dish_type = dishType.dish_type_id;
+                                
+                            DataLayer.Instance.SaveDish(item, null);
+                        }
+                        ApplyFilters(sender, e);
+                        MessageBox.Show("Данні успішно імпортовано", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        break;
+                    case ViewMode.Ingredients:
+                    case ViewMode.DishTypes:
+                        throw new NotImplementedException($"Імпорт {currentViewMode} ще не зроблено");
+                    case ViewMode.Clients:
+                    case ViewMode.Kitchens:
+                    default:
+                        throw new NotSupportedException($"Імпорт {currentViewMode} не підтримується");
                 }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message, "Щось сталося", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Щось сталося", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -573,5 +579,6 @@ namespace DishOfTheDay
             var dlg = new StatisticsForm();
             dlg.ShowDialog();
         }
+
     }
 }

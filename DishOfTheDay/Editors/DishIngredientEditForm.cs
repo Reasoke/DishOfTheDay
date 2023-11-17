@@ -1,15 +1,6 @@
 ﻿using DishOfTheDay.Entity;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Xml.Linq;
 
 namespace DishOfTheDay.Editors
 {
@@ -51,6 +42,7 @@ namespace DishOfTheDay.Editors
 
             CurrentItem.ingredient_id = ingredient.ingredient_id;
             CurrentItem.ingredientName = ingredient.name;
+            CurrentItem.units = ingredient.units;
             CurrentItem.count = (int)numCount.Value;
 
 

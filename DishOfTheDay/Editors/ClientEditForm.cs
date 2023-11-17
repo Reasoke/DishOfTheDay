@@ -1,7 +1,6 @@
 ﻿using DishOfTheDay.Entity;
 using System;
 using System.Windows.Forms;
-using System.Xml.Linq;
 
 namespace DishOfTheDay.Editors
 {

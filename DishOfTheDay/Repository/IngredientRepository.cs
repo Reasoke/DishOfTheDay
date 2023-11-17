@@ -79,13 +79,13 @@ namespace DishOfTheDay.Repository
         
         public int Insert(IngredientEntity item)
         {
-            item.ingredient_id = GetConnection().ExecuteScalar<int>("INSERT INTO Ingredient (name) VALUES (@name); SELECT  SCOPE_IDENTITY();", item);
+            item.ingredient_id = GetConnection().ExecuteScalar<int>("INSERT INTO Ingredient (name, price, units, expiration, manufacturer) VALUES (@name, @price, @units, @expiration, @manufacturer); SELECT  SCOPE_IDENTITY();", item);
             return item.ingredient_id;
         }
 
         public void Update(IngredientEntity item)
         {
-            GetConnection().Execute(@"UPDATE Ingredient SET name = @name WHERE ingredient_id = @ingredient_id;", item);
+            GetConnection().Execute(@"UPDATE Ingredient SET name = @name, price = @price, units = @units, expiration = @expiration, manufacturer = @manufacturer WHERE ingredient_id = @ingredient_id;", item);
         }
 
         public void Delete(int id)
