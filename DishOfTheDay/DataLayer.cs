@@ -1,5 +1,7 @@
 ﻿using DishOfTheDay.Entity;
 using DishOfTheDay.Repository;
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -31,14 +33,20 @@ namespace DishOfTheDay
         private readonly DishRepository dishRepository = new DishRepository();
 
         public List<DishEntity> GetDishes(string search, int sortIndex, bool sortAsc, int minCookingTime,int maxCookingTime,
-            int minIngredientCount, int maxIngredientCount, int dishTypeId, int kitchenId, bool? hasPicture)
+            int minIngredientCount, int maxIngredientCount, int dishTypeId, int kitchenId, bool? hasPicture, bool? myDishes, bool? myReviews)
         {
             return dishRepository.GetAll(search, sortIndex, sortAsc, minCookingTime, maxCookingTime,
-                        minIngredientCount, maxIngredientCount, dishTypeId, kitchenId, hasPicture).ToList();
+                        minIngredientCount, maxIngredientCount, dishTypeId, kitchenId, hasPicture, myDishes, myReviews, CurrentUser.client_id).ToList();
+        }
+
+        internal List<DishModel> GetDishModels(int[] ids)
+        {
+            return dishRepository.GetModels(ids).ToList();
         }
 
         public void SaveDish(DishEntity item, List<DishIngredientEntity> currentIngredients)
         {
+            item.owner = CurrentUser.client_id;
             if (item.dish_id > 0)
                 dishRepository.Update(item, currentIngredients);
             else
@@ -170,6 +178,7 @@ namespace DishOfTheDay
         #region Client
 
         private readonly ClientRepository clientRepository = new ClientRepository();
+        public ClientEntity CurrentUser { get; private set; }
 
         public List<ClientEntity> GetClients(string search, int sortIndex, bool sortAsc, bool? phone, bool? address, bool? desc,
             int minDishes, int maxDishes)
@@ -188,6 +197,63 @@ namespace DishOfTheDay
         public void DeleteClient(int id)
         {
             clientRepository.Delete(id);
+        }
+
+        internal ClientDishEntity GetReview(int dish_Id)
+        {
+            return clientRepository.GetReview(CurrentUser.client_id, dish_Id);
+        }
+
+        internal void SetReview(int dish_Id, int rating, string review)
+        {
+            clientRepository.SetReview(new ClientDishEntity
+            {
+                client_id = CurrentUser.client_id, 
+                dish_id = dish_Id, 
+                rating = rating, 
+                review = review,
+            });
+        }
+
+        internal void IncrementUsageNumber(int dish_id)
+        {
+            clientRepository.IncrementUsageNumber(dish_id, CurrentUser.client_id);
+        }
+
+        internal bool VerifyPassword(string email, string password)
+        {
+            CurrentUser = clientRepository.GetClient(email, GetHash(password));
+            return CurrentUser != null;
+        }
+
+        internal bool UserExist(string email)
+        {
+            return clientRepository.UserExist(email);
+        }
+
+        internal void RegisterUser(string email, string password)
+        {
+            CurrentUser = clientRepository.RegisterUser(email, GetHash(password));
+        }
+
+        internal bool ChangePassword(string oldPassword, string newPassword)
+        {
+            if(clientRepository.GetClient(CurrentUser.email, GetHash(oldPassword)) == null)
+            {
+                return false;
+            }
+            clientRepository.SetPassword(CurrentUser.client_id, GetHash(newPassword));
+            return true;
+        }
+
+        private static string GetHash(string input)
+        {
+            using (var crypter = System.Security.Cryptography.SHA256.Create())
+            {
+                byte[] inputBytes = System.Text.Encoding.UTF8.GetBytes(input);
+                byte[] hashBytes = crypter.ComputeHash(inputBytes);
+                return System.Convert.ToBase64String(hashBytes);
+            }
         }
 
         #endregion

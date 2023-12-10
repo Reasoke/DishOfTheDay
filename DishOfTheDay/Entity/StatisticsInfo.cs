@@ -21,6 +21,13 @@ namespace DishOfTheDay.Entity
             }
         }
         
+        public class PeriodStats
+        {
+            public int Year { get; set; }
+            public int Month { get; set; }
+            public int Amount { get; set; }
+        }
+
         public int TotalDishCount { get; set; }
         public int DishesWithImageCount { get; set; }
         public int DishesWithoutImageCount { get; set; }
@@ -41,6 +48,9 @@ namespace DishOfTheDay.Entity
         public List<UserValue> MostActive { get; set; }
         
         public List<UserValue> MostHungry { get; set; }
+        
+        public List<PeriodStats> DishPeriods { get; set; }
+        public List<PeriodStats> ClientPeriods { get; set; }
         
     }
     

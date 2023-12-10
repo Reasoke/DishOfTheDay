@@ -53,6 +53,18 @@ namespace DishOfTheDay.Editors
             foreach (var i in info.MostHungry)
             {
                 result.AppendLine($"{i.Name}: {i.Value} страв використано");
+            }            
+            
+            result.AppendLine().AppendBoldLine("Додавання страв за певний період");
+            foreach (var i in info.DishPeriods)
+            {
+                result.AppendLine($"{i.Year} {i.Month:00}: {i.Amount} страв додано");
+            }            
+            
+            result.AppendLine().AppendBoldLine("Додавання користувачів за певний період");
+            foreach (var i in info.ClientPeriods)
+            {
+                result.AppendLine($"{i.Year} {i.Month:00}: {i.Amount} клієнтів додано");
             }
 
             txtInformation.Rtf = result.ToRtf();            //.Replace("\n", "\r\n");
@@ -163,6 +175,48 @@ namespace DishOfTheDay.Editors
                         table2.AddCell(cell42);
                     }
                     document.Add(table2);
+                    document.Add(newline); 
+
+                    var title7 = new Paragraph("Додавання страв за певний період").SetTextAlignment(TextAlignment.LEFT).SetFontSize(12).SetBold();
+                    document.Add(title7);
+                    Table table3 = new Table(3, false);
+                    Cell cell51 = new Cell(1, 1).SetBackgroundColor(ColorConstants.GRAY).SetTextAlignment(TextAlignment.CENTER).Add(new Paragraph("Рік"));
+                    Cell cell52 = new Cell(1, 1).SetBackgroundColor(ColorConstants.GRAY).SetTextAlignment(TextAlignment.CENTER).Add(new Paragraph("Місяць"));
+                    Cell cell53 = new Cell(1, 1).SetBackgroundColor(ColorConstants.GRAY).SetTextAlignment(TextAlignment.CENTER).Add(new Paragraph("Кількість доданих страв"));
+                    table3.AddCell(cell51);
+                    table3.AddCell(cell52);
+                    table3.AddCell(cell53);
+                    foreach (var i in info.DishPeriods)
+                    {
+                        Cell cell61 = new Cell(1, 1).SetTextAlignment(TextAlignment.CENTER).Add(new Paragraph(i.Year.ToString()));
+                        Cell cell62 = new Cell(1, 1).SetTextAlignment(TextAlignment.CENTER).Add(new Paragraph(i.Month.ToString("00")));
+                        Cell cell63 = new Cell(1, 1).SetTextAlignment(TextAlignment.CENTER).Add(new Paragraph(i.Amount.ToString()));
+                        table3.AddCell(cell61);
+                        table3.AddCell(cell62);
+                        table3.AddCell(cell63);
+                    }
+                    document.Add(table3);
+                    document.Add(newline);                     
+                    
+                    var title8 = new Paragraph("Додавання користувачів за певний період").SetTextAlignment(TextAlignment.LEFT).SetFontSize(12).SetBold();
+                    document.Add(title8);
+                    Table table4 = new Table(3, false);
+                    Cell cell71 = new Cell(1, 1).SetBackgroundColor(ColorConstants.GRAY).SetTextAlignment(TextAlignment.CENTER).Add(new Paragraph("Рік"));
+                    Cell cell72 = new Cell(1, 1).SetBackgroundColor(ColorConstants.GRAY).SetTextAlignment(TextAlignment.CENTER).Add(new Paragraph("Місяць"));
+                    Cell cell73 = new Cell(1, 1).SetBackgroundColor(ColorConstants.GRAY).SetTextAlignment(TextAlignment.CENTER).Add(new Paragraph("Кількість доданих користувачів"));
+                    table4.AddCell(cell71);
+                    table4.AddCell(cell72);
+                    table4.AddCell(cell73);
+                    foreach (var i in info.ClientPeriods)
+                    {
+                        Cell cell81 = new Cell(1, 1).SetTextAlignment(TextAlignment.CENTER).Add(new Paragraph(i.Year.ToString()));
+                        Cell cell82 = new Cell(1, 1).SetTextAlignment(TextAlignment.CENTER).Add(new Paragraph(i.Month.ToString("00")));
+                        Cell cell83 = new Cell(1, 1).SetTextAlignment(TextAlignment.CENTER).Add(new Paragraph(i.Amount.ToString()));
+                        table4.AddCell(cell81);
+                        table4.AddCell(cell82);
+                        table4.AddCell(cell83);
+                    }
+                    document.Add(table4);
                     document.Add(newline); 
                     
                     document.Add(newline);

@@ -35,11 +35,18 @@ namespace DishOfTheDay.Editors
 
                 if (CurrentItem == null)
                 {
+                    btnReview.Enabled = false;
                     CurrentItem = new DishEntity();
                     CurrentIngredients = new List<DishIngredientEntity>();
                 }
                 else
                 {
+                    DataLayer.Instance.IncrementUsageNumber(CurrentItem.dish_id);
+                    btnReview.Enabled = DataLayer.Instance.CurrentUser.client_id != CurrentItem.owner;
+                    buttonOK.Enabled = DataLayer.Instance.CurrentUser.client_id == CurrentItem.owner;
+                    btnAdd.Enabled = DataLayer.Instance.CurrentUser.client_id == CurrentItem.owner;
+                    btnRemove.Enabled = DataLayer.Instance.CurrentUser.client_id == CurrentItem.owner;
+
                     txtName.Text = CurrentItem.name;
                     cmbKitchen.SelectedValue = CurrentItem.kitchen;
                     cmbDishType.SelectedValue = CurrentItem.dish_type;
@@ -130,6 +137,7 @@ namespace DishOfTheDay.Editors
             {
                 var i = lstIngredients.Items.Add(dlg.CurrentItem.ingredientName);
                 i.SubItems.Add(dlg.CurrentItem.count.ToString());
+                i.SubItems.Add(dlg.CurrentItem.units.ToString());
                 i.Tag = dlg.CurrentItem;
                 dlg.CurrentItem.dish_id = CurrentItem.dish_id;
                 CurrentIngredients.Add(dlg.CurrentItem);
@@ -211,14 +219,17 @@ namespace DishOfTheDay.Editors
                     var subheader  = new Paragraph("Створено в DishOfTheDay " + DateTime.Now)
                         .SetTextAlignment(TextAlignment.CENTER).SetFontSize(15);
                     document.Add(subheader);
-                    
+
                     // Add image
-                    var img = new Image(ImageDataFactory.Create(CurrentItem.picture))
-                        // .SetMaxWidth(UnitValue.CreatePercentValue(70))
-                        // .SetMaxWidth(200)
-                        .SetMaxHeight(200)
-                        .SetHorizontalAlignment(HorizontalAlignment.CENTER);
-                    document.Add(img);
+                    if (CurrentItem.picture != null)
+                    {
+                        var img = new Image(ImageDataFactory.Create(CurrentItem.picture))
+                            // .SetMaxWidth(UnitValue.CreatePercentValue(70))
+                            // .SetMaxWidth(200)
+                            .SetMaxHeight(200)
+                            .SetHorizontalAlignment(HorizontalAlignment.CENTER);
+                        document.Add(img);
+                    }
                     
                     //Information about dish
                     var dishType = new Paragraph("Тип страви: " + CurrentItem.DishTypeName)
@@ -277,6 +288,13 @@ namespace DishOfTheDay.Editors
                     MessageBox.Show(ex.Message, "Щось сталося", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
+        }
+
+        private void btnReview_Click(object sender, EventArgs e)
+        {
+            var dlg = new ReviewEditForm();
+            dlg.CurrentDishId = CurrentItem.dish_id;
+            dlg.ShowDialog();
         }
     }
 }

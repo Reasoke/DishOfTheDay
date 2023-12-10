@@ -14,8 +14,16 @@ namespace DishOfTheDay.Entity
         public int dish_type { get; set; }
         public string DishTypeName { get; set; }
         public int cooking_time { get; set; }
+        [JsonIgnore]
+        public int ingredient_count { get; set; }
+        [JsonIgnore]
+        public decimal rating { get; set; }
+        [JsonIgnore]
+        public int usage_count { get; set; }
         public string recipe { get; set; }
         public byte[] picture { get; set; }
+        [JsonIgnore]
+        public int owner { get; set; }
         
     }
 }

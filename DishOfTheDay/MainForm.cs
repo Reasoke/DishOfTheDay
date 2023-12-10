@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
@@ -25,7 +26,7 @@ namespace DishOfTheDay
 
         private ViewMode currentViewMode = ViewMode.Dishes;
         private Timer filterTimer;
-        private List<object> currentData;
+        private IList currentData;
         
         public MainForm()
         {
@@ -46,6 +47,7 @@ namespace DishOfTheDay
 
         private void MainForm_Load(object sender, EventArgs e)
         {
+            clientsToolStripMenuItem.Visible = DataLayer.Instance.CurrentUser.role == ClientRole.Admin;
             RefreshData();
         }
 
@@ -122,10 +124,12 @@ namespace DishOfTheDay
                     int dishTypeId = cmbDishTypes.SelectedValue == null ? -1 : (int)cmbDishTypes.SelectedValue;
                     int kitchenId = cmbKitchens.SelectedValue == null ? -1 : (int)cmbKitchens.SelectedValue;
                     bool? hasPicture = checkBoxPicture.CheckState == CheckState.Unchecked ? (bool?)null : checkBoxPicture.CheckState == CheckState.Checked;
+                    bool? myDishes = checkBoxMyDishes.CheckState == CheckState.Unchecked ? (bool?)null : checkBoxMyDishes.CheckState == CheckState.Checked;
+                    bool? myReviews = checkBoxMyReviews.CheckState == CheckState.Unchecked ? (bool?)null : checkBoxMyReviews.CheckState == CheckState.Checked;
 
                     var dishes = DataLayer.Instance.GetDishes(search, sortIndex, sortAsc, minCookingTime, maxCookingTime,
-                        minIngredientCount, maxIngredientCount, dishTypeId, kitchenId, hasPicture);
-                    currentData = new List<object>(dishes);
+                        minIngredientCount, maxIngredientCount, dishTypeId, kitchenId, hasPicture, myDishes, myReviews);
+                    currentData = new List<DishEntity>(dishes);
 
                     //display
                     var kitchens = DataLayer.Instance.KitchensFilter;
@@ -134,7 +138,10 @@ namespace DishOfTheDay
                     lstMain.Columns.Add("Назва", 200);
                     lstMain.Columns.Add("Кухня", 140);
                     lstMain.Columns.Add("Тип страви", 120);
-                    lstMain.Columns.Add("Час приготування (хв)", 200);
+                    lstMain.Columns.Add("Час приготування (хв)", 180);
+                    lstMain.Columns.Add("Інгредієнтів", 100);
+                    lstMain.Columns.Add("Рейтинг", 80);
+                    lstMain.Columns.Add("Переглядів", 100);
 
                     cmbSort.Items.Clear();
                     cmbSort.Items.Add("");
@@ -162,6 +169,9 @@ namespace DishOfTheDay
                         listViewItem.SubItems.Add(kitchens.FirstOrDefault(k => k.kitchen_id == entity.kitchen)?.name);
                         listViewItem.SubItems.Add(dishTypes.FirstOrDefault(d => d.dish_type_id == entity.dish_type)?.name);
                         listViewItem.SubItems.Add(entity.cooking_time.ToString());
+                        listViewItem.SubItems.Add(entity.ingredient_count.ToString());
+                        listViewItem.SubItems.Add(entity.rating.ToString("0.##"));
+                        listViewItem.SubItems.Add(entity.usage_count.ToString());
                         listViewItem.Tag = entity;
                     }
                     header.Text = "Страви";
@@ -375,14 +385,14 @@ namespace DishOfTheDay
         {
             if (lstMain.SelectedItems.Count == 0)
             {
-                MessageBox.Show("Нічого не обрано", "warning", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Нічого не обрано", "Увага", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
             var selectedItem = lstMain.SelectedItems[0].Tag;
             if (selectedItem == null)
             {
-                MessageBox.Show("Немає даних", "warning", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Немає даних", "Увага", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
@@ -396,8 +406,8 @@ namespace DishOfTheDay
                         if (dlg.ShowDialog() == DialogResult.OK)
                         {
                             DataLayer.Instance.SaveDish(dlg.CurrentItem, dlg.CurrentIngredients);
-                            ApplyFilters(sender, e);
                         }
+                        ApplyFilters(sender, e);
                         break;
                     }
                 case KitchenEntity kitchenEntity:
@@ -452,7 +462,7 @@ namespace DishOfTheDay
         {
             if (lstMain.SelectedItems.Count == 0)
             {
-                MessageBox.Show("Нічого не обрано", "warning", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Нічого не обрано", "Попередження", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
@@ -464,7 +474,7 @@ namespace DishOfTheDay
             var selectedItem = lstMain.SelectedItems[0].Tag;
             if (selectedItem == null)
             {
-                MessageBox.Show("Немає даних", "warning", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Немає даних", "Попередження", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
@@ -480,6 +490,11 @@ namespace DishOfTheDay
                     DataLayer.Instance.DeleteDishType(dishTypeEntity.dish_type_id);
                     break;
                 case ClientEntity clientEntity:
+                    if (clientEntity.client_id == DataLayer.Instance.CurrentUser.client_id)
+                    {
+                        MessageBox.Show("Самогубство заборонено!", "Попередження", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
                     DataLayer.Instance.DeleteClient(clientEntity.client_id);
                     break;
                 case IngredientEntity ingredientEntity:
@@ -511,6 +526,12 @@ namespace DishOfTheDay
             if (dlg.ShowDialog() != DialogResult.OK) return;
             try
             {
+                if(currentData is List<DishEntity> dishList)
+                {
+                    var ids = dishList.Select(d => d.dish_id).ToArray();
+                    currentData = DataLayer.Instance.GetDishModels(ids);
+                }
+
                 var json = JsonConvert.SerializeObject(currentData, Formatting.Indented);
                 File.WriteAllText(dlg.FileName, json);
                 MessageBox.Show("Данні успішно експортовано", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -534,10 +555,24 @@ namespace DishOfTheDay
                 switch (currentViewMode)
                 {
                     case ViewMode.Dishes:
-                        var items = JsonConvert.DeserializeObject<DishEntity[]>(json);
-                        foreach (var item in items)
+                        //var items = JsonConvert.DeserializeObject<DishEntity[]>(json);
+                        //foreach (var item in items)
+                        //{
+                        //    item.dish_id = -1;
+                        var items = JsonConvert.DeserializeObject<DishModel[]>(json);
+                        foreach (var dish in items)
                         {
-                            item.dish_id = -1;
+                            var item = new DishEntity
+                            {
+                                dish_id = -1,
+                                name = dish.name,
+                                cooking_time = dish.cooking_time,
+                                recipe = dish.recipe,
+                                picture = dish.picture,
+                                KitchenName = dish.KitchenName,
+                                DishTypeName = dish.DishTypeName,
+                            };
+
                             var kitchen = DataLayer.Instance.Kitchens.FirstOrDefault(k => k.name.Equals(item.KitchenName));
                             if (kitchen == null)
                             {
@@ -553,8 +588,31 @@ namespace DishOfTheDay
                                 DataLayer.Instance.SaveDishType(dishType);
                             }
                             item.dish_type = dishType.dish_type_id;
-                                
-                            DataLayer.Instance.SaveDish(item, null);
+
+                            var dishIngredients = new List<DishIngredientEntity>();
+
+                            foreach(var i in dish.ingredients)
+                            {
+                                var ingredient = DataLayer.Instance.Ingredients.FirstOrDefault(k => k.name.Equals(i.ingredientName));
+                                if (ingredient == null)
+                                {
+                                    ingredient = new IngredientEntity
+                                    {
+                                        ingredient_id = -1,
+                                        name = i.ingredientName,
+                                        units = i.units,
+                                    };
+                                    DataLayer.Instance.SaveIngredient(ingredient); //get ingredient_id
+                                }
+
+                                dishIngredients.Add(new DishIngredientEntity
+                                {
+                                    ingredient_id = ingredient.ingredient_id,
+                                    count = i.count,
+                                });
+                            }
+
+                            DataLayer.Instance.SaveDish(item, dishIngredients);
                         }
                         ApplyFilters(sender, e);
                         MessageBox.Show("Данні успішно імпортовано", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -580,5 +638,22 @@ namespace DishOfTheDay
             dlg.ShowDialog();
         }
 
+        private void profileToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var dlg = new ClientEditForm();
+            dlg.CurrentItem = DataLayer.Instance.CurrentUser;
+            if (dlg.ShowDialog() == DialogResult.OK)
+            {
+                DataLayer.Instance.SaveClient(DataLayer.Instance.CurrentUser);
+                ApplyFilters(sender, e);
+            }
+        }
+
+        private void changePasswordToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var dlg = new PasswordEditForm();
+            dlg.ShowDialog();                  
+            
+        }
     }
 }

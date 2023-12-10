@@ -3,6 +3,8 @@ using DishOfTheDay.Entity;
 using System;
 using System.Collections.Generic;
 using System.Data.Common;
+using System.Linq;
+using static DishOfTheDay.Entity.StatisticsInfo;
 
 namespace DishOfTheDay.Repository
 {
@@ -116,6 +118,18 @@ namespace DishOfTheDay.Repository
                     }
                 }
 
+
+                result.DishPeriods = cn.Query<PeriodStats>(
+                    @"SELECT DATEPART(Year, d.created) Year, DATEPART(Month, d.created) Month, count(1) Amount
+                    FROM Dish d
+                    GROUP BY DATEPART(Year, d.created), DATEPART(Month, d.created)
+                    ORDER BY Year, Month").ToList();
+
+                result.ClientPeriods = cn.Query<PeriodStats>(
+                    @"SELECT DATEPART(Year, d.created) Year, DATEPART(Month, d.created) Month, count(1) Amount
+                    FROM Client d
+                    GROUP BY DATEPART(Year, d.created), DATEPART(Month, d.created)
+                    ORDER BY Year, Month").ToList();
 
                 //var popularDishType = cn.ExecuteScalar<string>("select count(1) total from Dish");
                 //var t = cn.Query<string>("SELECT TOP 5 rating FROM ClientDish");

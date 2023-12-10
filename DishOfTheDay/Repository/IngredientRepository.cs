@@ -9,7 +9,7 @@ namespace DishOfTheDay.Repository
     {
         public IEnumerable<IngredientEntity> GetAll()
         {
-            return GetConnection().Query<IngredientEntity>("SELECT ingredient_id, name, price, units, expiration, manufacturer FROM Ingredient");
+            return GetConnection().Query<IngredientEntity>("SELECT ingredient_id, name, price, units, expiration, manufacturer FROM Ingredient ORDER BY name");
         }
 
         public IEnumerable<IngredientEntity> GetAll(string search, int sortIndex, bool sortAsc, int minPrice, int maxPrice, string units, string manufacturer)
