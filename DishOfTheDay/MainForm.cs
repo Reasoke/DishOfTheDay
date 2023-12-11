@@ -58,7 +58,7 @@ namespace DishOfTheDay
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Hello", "About", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show("Dish Of The Day - чудовий вибір для допомоги у приготуванні страв вдома!", "About", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
         
         private void dichesToolStripMenuItem_Click(object sender, EventArgs e)
