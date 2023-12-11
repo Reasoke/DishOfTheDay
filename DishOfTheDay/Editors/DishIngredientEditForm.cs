@@ -36,7 +36,7 @@ namespace DishOfTheDay.Editors
             var ingredient = cmbIngredients.SelectedItem as IngredientEntity;
             if (ingredient == null)
             {
-                MessageBox.Show("Не обрано інгредіент", "warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Не обрано інгредіент", "Увага", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 

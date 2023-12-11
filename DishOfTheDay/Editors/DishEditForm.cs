@@ -98,23 +98,23 @@ namespace DishOfTheDay.Editors
             var kitchen = cmbKitchen.SelectedItem as KitchenEntity;
             if (kitchen == null)
             {
-                MessageBox.Show("Не обрано кухню страви", "warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Не обрано кухню страви", "Увага", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
             var dishType = cmbDishType.SelectedItem as DishTypeEntity;
             if (dishType == null)
             {
-                MessageBox.Show("Не обрано тип страви", "warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Не обрано тип страви", "Увага", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
             if (string.IsNullOrEmpty(txtName.Text))
             {
-                MessageBox.Show("Не введено назву страви", "warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Не введено назву страви", "Увага", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
             if (string.IsNullOrEmpty(txtRecipe.Text))
             {
-                MessageBox.Show("Не введено рецепт страви", "warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Не введено рецепт страви", "Увага", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
@@ -149,14 +149,14 @@ namespace DishOfTheDay.Editors
         {
             if (lstIngredients.SelectedItems.Count == 0)
             {
-                MessageBox.Show("Нічого не обрано", "warning", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Нічого не обрано", "Увага", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
             var selectedItem = lstIngredients.SelectedItems[0].Tag as DishIngredientEntity;
             if (selectedItem == null)
             {
-                MessageBox.Show("Немає даних", "warning", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Немає даних", "Увага", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
             var dlg = new DishIngredientEditForm();
@@ -173,14 +173,14 @@ namespace DishOfTheDay.Editors
         {
             if (lstIngredients.SelectedItems.Count == 0)
             {
-                MessageBox.Show("Нічого не обрано", "warning", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Нічого не обрано", "Увага", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
             var selectedItem = lstIngredients.SelectedItems[0].Tag as DishIngredientEntity;
             if (selectedItem == null)
             {
-                MessageBox.Show("Немає даних", "warning", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Немає даних", "Увага", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 

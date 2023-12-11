@@ -31,7 +31,7 @@ namespace DishOfTheDay.Editors
             
             if (string.IsNullOrEmpty(txtName.Text))
             {
-                MessageBox.Show("Не введено назву типу страви", "warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Не введено назву типу страви", "Увага", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
            

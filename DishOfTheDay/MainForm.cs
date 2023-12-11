@@ -462,7 +462,7 @@ namespace DishOfTheDay
         {
             if (lstMain.SelectedItems.Count == 0)
             {
-                MessageBox.Show("Нічого не обрано", "Попередження", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Нічого не обрано", "Увага", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
@@ -474,7 +474,7 @@ namespace DishOfTheDay
             var selectedItem = lstMain.SelectedItems[0].Tag;
             if (selectedItem == null)
             {
-                MessageBox.Show("Немає даних", "Попередження", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Немає даних", "Увага", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
@@ -492,7 +492,7 @@ namespace DishOfTheDay
                 case ClientEntity clientEntity:
                     if (clientEntity.client_id == DataLayer.Instance.CurrentUser.client_id)
                     {
-                        MessageBox.Show("Самогубство заборонено!", "Попередження", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("Самогубство заборонено!", "Увага", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         return;
                     }
                     DataLayer.Instance.DeleteClient(clientEntity.client_id);

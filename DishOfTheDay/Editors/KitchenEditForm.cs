@@ -60,7 +60,7 @@ namespace DishOfTheDay.Editors
         {
             if (string.IsNullOrEmpty(txtName.Text))
             {
-                MessageBox.Show("Не введено назву кухні", "warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Не введено назву кухні", "Увага", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 

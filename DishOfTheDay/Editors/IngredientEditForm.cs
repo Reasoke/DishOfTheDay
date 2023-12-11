@@ -33,17 +33,17 @@ namespace DishOfTheDay.Editors
         {          
             if (string.IsNullOrEmpty(txtName.Text))
             {
-                MessageBox.Show("Не введено назву інгредієнта", "warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Не введено назву інгредієнта", "Увага", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
             if (string.IsNullOrEmpty(txtUnits.Text))
             {
-                MessageBox.Show("Не введено міру вимірювання", "warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Не введено міру вимірювання", "Увага", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
             if (numPrice.Value == 0)
             {
-                MessageBox.Show("Не введено ціну", "warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Не введено ціну", "Увага", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 

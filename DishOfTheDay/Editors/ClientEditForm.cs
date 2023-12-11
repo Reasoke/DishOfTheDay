@@ -34,17 +34,17 @@ namespace DishOfTheDay.Editors
         {          
             if (string.IsNullOrEmpty(txtFirstName.Text))
             {
-                MessageBox.Show("Не введено назву ім'я", "warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Не введено назву ім'я", "Увага", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
             if (string.IsNullOrEmpty(txtLastName.Text))
             {
-                MessageBox.Show("Не введено прізвище", "warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Не введено прізвище", "Увага", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
             if (string.IsNullOrEmpty(txtEmail.Text))
             {
-                MessageBox.Show("Не введено електронну пошту", "warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Не введено електронну пошту", "Увага", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
